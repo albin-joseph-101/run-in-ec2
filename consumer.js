@@ -19,7 +19,7 @@ const processMessage = async (message) => {
     const consumer = kafka.consumer({ groupId: 'iot-data-consumer' })
 
     await consumer.connect()
-    await consumer.subscribe({ topic: 'iot-data', fromBeginning: true })
+    await consumer.subscribe({ topic: 'iot-data-stream', fromBeginning: true })
     await consumer.run({
         eachBatch: async ({ batch, resolveOffset, heartbeat, isRunning, isStale }) => {
             for (let message of batch.messages) {
