@@ -17,11 +17,8 @@ const { Kafka } = require('kafkajs');
 
     try {
         await admin.createTopics({
-            topics: [{
-                topic: "test-topic",
-                replicaAssignment: [{ partition: 1, replicas: [0] }],
-                configEntries: [{ name: 'cleanup.policy', value: 'compact' }]
-            }]
+            waitForLeaders: false,
+            topics: [{ topic: "test-topic", numPartitions: 1, replicationFactor: 1 }],
         })
 
     } catch (error) {
