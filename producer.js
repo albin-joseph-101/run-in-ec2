@@ -26,7 +26,7 @@ const { Kafka } = require('kafkajs');
         //     waitForLeaders: true,
         //     topics: [{ topic: "test-topic-123", numPartitions: 3, replicationFactor: 3 }],
         // })
-        const topicjs = admin.createTopics({
+        const topicjs = await admin.createTopics({
             waitForLeaders: true,
             topics: [
                 {
