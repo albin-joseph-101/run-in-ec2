@@ -8,7 +8,7 @@ const { Kafka } = require('kafkajs');
             "b-1.iotstream.rnnl6v.c6.kafka.us-east-2.amazonaws.com:9098",
             "b-3.iotstream.rnnl6v.c6.kafka.us-east-2.amazonaws.com:9098",
         ],
-
+        ssl: true
     });
 
     const producer = kafka.producer()
