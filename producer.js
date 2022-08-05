@@ -12,25 +12,28 @@ const { Kafka, PartitionAssigners } = require('kafkajs');
         retry: 30
     });
 
+    const admin = kafka.admin();
+    await admin.connect();
+
+    const cluster = await admin.describeCluster();
+    console.log(cluster);
+
+    try {
+        const topicjs = await admin.createTopics({
+            waitForLeaders: true,
+            topics: [{ topic: "test-topic-123", numPartitions: 3, replicationFactor: 3 }],
+        })
+        console.log({ topicjs });
+    } catch (error) {
+        console.log(error);
+    }
+
+
+
     const producer = kafka.producer({
         allowAutoTopicCreation: true,
         retry: 30
     })
-    // const admin = kafka.admin();
-    // await admin.connect();
-
-    // const cluster = await admin.describeCluster();
-    // console.log(cluster);
-
-    // try {
-    //     const topicjs = await admin.createTopics({
-    //         waitForLeaders: true,
-    //         topics: [{ topic: "test-topic", numPartitions: 1, replicationFactor: 1 }],
-    //     })
-    //     console.log({ topicjs });
-    // } catch (error) {
-    //     console.log(error);
-    // }
 
     await producer.connect()
 
