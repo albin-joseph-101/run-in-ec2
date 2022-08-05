@@ -46,30 +46,30 @@ const { Kafka } = require('kafkajs');
 
 
 
-    // const producer = kafka.producer({
-    //     allowAutoTopicCreation: true,
-    //     retry: 30
-    // })
+    const producer = kafka.producer({
+        allowAutoTopicCreation: true,
+        retry: 30
+    })
 
-    // await producer.connect()
+    await producer.connect()
 
-    // const res = await producer.send({
-    //     topic: 'test-topic-123',
-    //     messages: [
-    //         { value: 'Hello KafkaJS user!1' },
-    //         { value: 'Hello KafkaJS user!2' },
-    //         { value: 'Hello KafkaJS user!3' },
-    //         { value: 'Hello KafkaJS user!4' },
-    //         { value: 'Hello KafkaJS user!5' },
-    //         { value: 'Hello KafkaJS user!6' },
-    //         { value: 'Hello KafkaJS user!1' },
-    //         { value: 'Hello KafkaJS user!2' },
-    //         { value: 'Hello KafkaJS user!3' },
-    //         { value: 'Hello KafkaJS user!4' },
-    //         { value: 'Hello KafkaJS user!5' },
-    //         { value: 'Hello KafkaJS user!6' },
-    //     ],
-    // })
+    const res = await producer.send({
+        topic: 'test-topic-123',
+        messages: [
+            { value: 'Hello KafkaJS user!1' },
+            { value: 'Hello KafkaJS user!2' },
+            { value: 'Hello KafkaJS user!3' },
+            { value: 'Hello KafkaJS user!4' },
+            { value: 'Hello KafkaJS user!5' },
+            { value: 'Hello KafkaJS user!6' },
+            { value: 'Hello KafkaJS user!1' },
+            { value: 'Hello KafkaJS user!2' },
+            { value: 'Hello KafkaJS user!3' },
+            { value: 'Hello KafkaJS user!4' },
+            { value: 'Hello KafkaJS user!5' },
+            { value: 'Hello KafkaJS user!6' },
+        ],
+    })
     // console.log({res});
     // await producer.disconnect();
     await admin.disconnect();

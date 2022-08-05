@@ -11,14 +11,14 @@ const { Kafka } = require('kafkajs');
         ssl: true
     });
 
-    const consumer = kafka.consumer({ groupId: 'test-group' })
+    const consumer = kafka.consumer({ groupId: 'iot-data-consumer' })
 
     await consumer.connect()
-    await consumer.subscribe({ topic: 'test-topic-123', fromBeginning: true })
+    await consumer.subscribe({ topic: 'iot-data', fromBeginning: true })
     await consumer.run({
         eachMessage: async ({ topic, partition, message }) => {
             console.log({
-                value: message.value.toString(),
+                value: JSON.parse(message),
                 topic,
                 partition
             })
