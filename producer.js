@@ -11,7 +11,7 @@ const { Kafka } = require('kafkajs');
         ssl: true
     });
 
-    const producer = kafka.producer()
+    // const producer = kafka.producer()
     const admin = kafka.admin();
     await admin.connect();
 
@@ -23,21 +23,21 @@ const { Kafka } = require('kafkajs');
         }]
     })
 
-    await producer.connect()
+    // await producer.connect()
 
-    await producer.send({
-        topic: 'test-topic',
-        messages: [
-            { value: 'Hello KafkaJS user!1' },
-            { value: 'Hello KafkaJS user!2' },
-            { value: 'Hello KafkaJS user!3' },
-            { value: 'Hello KafkaJS user!4' },
-            { value: 'Hello KafkaJS user!5' },
-            { value: 'Hello KafkaJS user!6' },
-        ],
-    })
-    console.log("done");
-    await producer.disconnect();
+    // await producer.send({
+    //     topic: 'test-topic',
+    //     messages: [
+    //         { value: 'Hello KafkaJS user!1' },
+    //         { value: 'Hello KafkaJS user!2' },
+    //         { value: 'Hello KafkaJS user!3' },
+    //         { value: 'Hello KafkaJS user!4' },
+    //         { value: 'Hello KafkaJS user!5' },
+    //         { value: 'Hello KafkaJS user!6' },
+    //     ],
+    // })
+    // await producer.disconnect();
     await admin.disconnect();
+    console.log("done");
 
 })()
