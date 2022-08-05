@@ -37,7 +37,7 @@ const { Kafka, PartitionAssigners } = require('kafkajs');
     await producer.connect()
 
     const res = await producer.send({
-        topic: 'test-topic-2',
+        topic: 'test-topic-123',
         messages: [
             { value: 'Hello KafkaJS user!1' },
             { value: 'Hello KafkaJS user!2' },
