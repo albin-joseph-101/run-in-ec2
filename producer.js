@@ -19,13 +19,25 @@ const { Kafka } = require('kafkajs');
     // console.log({ cluster: JSON.stringify(cluster), metadata: JSON.stringify(metadata) });
 
     try {
-        const topicjs = await admin.deleteTopics({
-            topics: ["test-topic-123"],
-        })
+        // const topicjs = await admin.deleteTopics({
+        //     topics: ["test-topic-123"],
+        // })
         // await admin.deleteTopics({
         //     waitForLeaders: true,
         //     topics: [{ topic: "test-topic-123", numPartitions: 3, replicationFactor: 3 }],
         // })
+        const topicjs = admin.createTopics({
+            waitForLeaders: true,
+            topics: [
+                {
+                    topic: "iot-data",
+                    numPartitions: 1,
+                    replicationFactor: 3,
+                    replicaAssignment: [],
+                    configEntries: [{ name: 'cleanup.policy', value: 'compact' }],
+                }
+            ]
+        })
         const metadata = await admin.fetchTopicMetadata()
         console.log({ topicjs, metadata: JSON.stringify(metadata) });
     } catch (error) {
