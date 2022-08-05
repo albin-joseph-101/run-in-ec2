@@ -1,4 +1,4 @@
-const { Kafka } = require('kafkajs');
+const { Kafka, PartitionAssigners } = require('kafkajs');
 
 (async () => {
     const kafka = new Kafka({
@@ -20,7 +20,7 @@ const { Kafka } = require('kafkajs');
 
     try {
         await admin.createTopics({
-            waitForLeaders: false,
+            waitForLeaders: true,
             topics: [{ topic: "test-topic", numPartitions: 1, replicationFactor: 1 }],
         })
 
