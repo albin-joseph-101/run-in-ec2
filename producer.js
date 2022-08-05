@@ -15,6 +15,9 @@ const { Kafka } = require('kafkajs');
     const admin = kafka.admin();
     await admin.connect();
 
+    const cluster = await admin.describeCluster();
+    console.log(cluster);
+
     try {
         await admin.createTopics({
             waitForLeaders: false,
