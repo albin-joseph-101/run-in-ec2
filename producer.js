@@ -14,7 +14,8 @@ const { Kafka, PartitionAssigners } = require('kafkajs');
     await admin.connect();
 
     const cluster = await admin.describeCluster();
-    console.log(cluster);
+    const metadata = await admin.fetchTopicMetadata(["test-topic-123", "test-topic", "test-topic-1"])
+    console.log({ cluster, metadata });
 
     try {
         const topicjs = await admin.createTopics({
