@@ -8,10 +8,12 @@ const { Kafka, PartitionAssigners } = require('kafkajs');
             "b-1.iotstream.rnnl6v.c6.kafka.us-east-2.amazonaws.com:9094",
             "b-3.iotstream.rnnl6v.c6.kafka.us-east-2.amazonaws.com:9094",
         ],
-        ssl: true
+        ssl: true,
     });
 
-    const producer = kafka.producer()
+    const producer = kafka.producer({
+        allowAutoTopicCreation: true
+    })
     // const admin = kafka.admin();
     // await admin.connect();
 
