@@ -19,11 +19,11 @@ const { Kafka, PartitionAssigners } = require('kafkajs');
     console.log(cluster);
 
     try {
-        await admin.createTopics({
+        const topicjs = await admin.createTopics({
             waitForLeaders: true,
             topics: [{ topic: "test-topic", numPartitions: 1, replicationFactor: 1 }],
         })
-
+        console.log({ topicjs });
     } catch (error) {
         console.log(error);
     }
