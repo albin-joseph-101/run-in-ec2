@@ -15,13 +15,18 @@ const { Kafka } = require('kafkajs');
     const admin = kafka.admin();
     await admin.connect();
 
-    await admin.createTopics({
-        topics: [{
-            topic: "test-topic",
-            replicaAssignment: [{ partition: 0, replicas: [0] }],
-            configEntries: [{ name: 'cleanup.policy', value: 'compact' }]
-        }]
-    })
+    try {
+        await admin.createTopics({
+            topics: [{
+                topic: "test-topic",
+                replicaAssignment: [{ partition: 1, replicas: [0] }],
+                configEntries: [{ name: 'cleanup.policy', value: 'compact' }]
+            }]
+        })
+
+    } catch (error) {
+        console.log(error);
+    }
 
     // await producer.connect()
 
