@@ -9,10 +9,12 @@ const { Kafka, PartitionAssigners } = require('kafkajs');
             "b-3.iotstream.rnnl6v.c6.kafka.us-east-2.amazonaws.com:9094",
         ],
         ssl: true,
+        retry: 30
     });
 
     const producer = kafka.producer({
-        allowAutoTopicCreation: true
+        allowAutoTopicCreation: true,
+        retry: 30
     })
     // const admin = kafka.admin();
     // await admin.connect();
@@ -32,8 +34,8 @@ const { Kafka, PartitionAssigners } = require('kafkajs');
 
     await producer.connect()
 
-    await producer.send({
-        topic: 'test-topic',
+    const res = await producer.send({
+        topic: 'test-topic-2',
         messages: [
             { value: 'Hello KafkaJS user!1' },
             { value: 'Hello KafkaJS user!2' },
@@ -43,6 +45,7 @@ const { Kafka, PartitionAssigners } = require('kafkajs');
             { value: 'Hello KafkaJS user!6' },
         ],
     })
+    console.log(res);
     await producer.disconnect();
     // await admin.disconnect();
     console.log("done");
