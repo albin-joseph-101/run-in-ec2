@@ -11,38 +11,38 @@ const { Kafka, PartitionAssigners } = require('kafkajs');
         ssl: true
     });
 
-    // const producer = kafka.producer()
-    const admin = kafka.admin();
-    await admin.connect();
+    const producer = kafka.producer()
+    // const admin = kafka.admin();
+    // await admin.connect();
 
-    const cluster = await admin.describeCluster();
-    console.log(cluster);
+    // const cluster = await admin.describeCluster();
+    // console.log(cluster);
 
-    try {
-        const topicjs = await admin.createTopics({
-            waitForLeaders: true,
-            topics: [{ topic: "test-topic", numPartitions: 1, replicationFactor: 1 }],
-        })
-        console.log({ topicjs });
-    } catch (error) {
-        console.log(error);
-    }
+    // try {
+    //     const topicjs = await admin.createTopics({
+    //         waitForLeaders: true,
+    //         topics: [{ topic: "test-topic", numPartitions: 1, replicationFactor: 1 }],
+    //     })
+    //     console.log({ topicjs });
+    // } catch (error) {
+    //     console.log(error);
+    // }
 
-    // await producer.connect()
+    await producer.connect()
 
-    // await producer.send({
-    //     topic: 'test-topic',
-    //     messages: [
-    //         { value: 'Hello KafkaJS user!1' },
-    //         { value: 'Hello KafkaJS user!2' },
-    //         { value: 'Hello KafkaJS user!3' },
-    //         { value: 'Hello KafkaJS user!4' },
-    //         { value: 'Hello KafkaJS user!5' },
-    //         { value: 'Hello KafkaJS user!6' },
-    //     ],
-    // })
-    // await producer.disconnect();
-    await admin.disconnect();
+    await producer.send({
+        topic: 'test-topic',
+        messages: [
+            { value: 'Hello KafkaJS user!1' },
+            { value: 'Hello KafkaJS user!2' },
+            { value: 'Hello KafkaJS user!3' },
+            { value: 'Hello KafkaJS user!4' },
+            { value: 'Hello KafkaJS user!5' },
+            { value: 'Hello KafkaJS user!6' },
+        ],
+    })
+    await producer.disconnect();
+    // await admin.disconnect();
     console.log("done");
 
 })()
