@@ -4,9 +4,9 @@ const { Kafka } = require('kafkajs');
     const kafka = new Kafka({
         clientId: 'iot-msk-producer',
         brokers: [
-            "b-2.iotstream.rnnl6v.c6.kafka.us-east-2.amazonaws.com:9098",
-            "b-1.iotstream.rnnl6v.c6.kafka.us-east-2.amazonaws.com:9098",
-            "b-3.iotstream.rnnl6v.c6.kafka.us-east-2.amazonaws.com:9098",
+            "b-2.iotstream.rnnl6v.c6.kafka.us-east-2.amazonaws.com:9094",
+            "b-1.iotstream.rnnl6v.c6.kafka.us-east-2.amazonaws.com:9094",
+            "b-3.iotstream.rnnl6v.c6.kafka.us-east-2.amazonaws.com:9094",
         ],
         ssl: true
     });
