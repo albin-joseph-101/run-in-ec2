@@ -8,11 +8,23 @@ const { Kafka } = require('kafkajs');
             "b-1.iotstream.rnnl6v.c6.kafka.us-east-2.amazonaws.com:9098",
             "b-3.iotstream.rnnl6v.c6.kafka.us-east-2.amazonaws.com:9098",
         ],
+
     });
 
     const producer = kafka.producer()
+    const admin = kafka.admin();
+    await admin.connect();
+
+    await admin.createTopics({
+        topics: [{
+            topic: "test-topic",
+            replicaAssignment: [{ partition: 0, replicas: [0] }],
+            configEntries: [{ name: 'cleanup.policy', value: 'compact' }]
+        }]
+    })
 
     await producer.connect()
+
     await producer.send({
         topic: 'test-topic',
         messages: [
@@ -25,6 +37,7 @@ const { Kafka } = require('kafkajs');
         ],
     })
     console.log("done");
-    await producer.disconnect()
+    await producer.disconnect();
+    await admin.disconnect();
 
 })()
