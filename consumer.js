@@ -1,5 +1,10 @@
 const { Kafka } = require('kafkajs');
 
+const processMessage = async (message) => {
+    const body = new Buffer(message.value, 'base64').toString();
+    console.log(body);
+}
+
 (async () => {
     const kafka = new Kafka({
         clientId: 'iot-msk-producer',
@@ -16,13 +21,15 @@ const { Kafka } = require('kafkajs');
     await consumer.connect()
     await consumer.subscribe({ topic: 'iot-data', fromBeginning: true })
     await consumer.run({
-        eachMessage: async ({ topic, partition, message }) => {
-            console.log({
-                value: JSON.parse(message),
-                topic,
-                partition
-            })
-        },
+        eachBatch: async ({ batch, resolveOffset, heartbeat, isRunning, isStale }) => {
+            for (let message of batch.messages) {
+                if (!isRunning() || isStale())
+                    break;
+                await processMessage(message);
+                await resolveOffset(message.offset);
+                await heartbeat();
+            }
+        }
     })
 
 })()
