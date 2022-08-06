@@ -26,17 +26,23 @@ const { Kafka } = require('kafkajs');
         //     waitForLeaders: true,
         //     topics: [{ topic: "test-topic-123", numPartitions: 3, replicationFactor: 3 }],
         // })
-        const topicjs = await admin.createTopics({
-            waitForLeaders: true,
-            topics: [
-                {
-                    topic: "iot-data",
-                    numPartitions: 1,
-                    replicationFactor: 3,
-                    replicaAssignment: [],
-                    configEntries: [{ name: 'cleanup.policy', value: 'compact' }],
-                }
-            ]
+        // const topicjs = await admin.createTopics({
+        //     waitForLeaders: true,
+        //     topics: [
+        //         {
+        //             topic: "iot-data",
+        //             numPartitions: 1,
+        //             replicationFactor: 3,
+        //             replicaAssignment: [],
+        //             configEntries: [{ name: 'cleanup.policy', value: 'compact' }],
+        //         }
+        //     ]
+        // })
+        const topicjs = await admin.createPartitions({
+            topicPartitions: [{
+                topic: "iot-data-stream",
+                count: 3
+            }]
         })
         const metadata = await admin.fetchTopicMetadata()
         console.log({ topicjs, metadata: JSON.stringify(metadata) });
