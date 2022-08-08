@@ -38,15 +38,20 @@ const { Kafka } = require('kafkajs');
         //         }
         //     ]
         // })
-        const topicjs = await admin.createPartitions({
-            topicPartitions: [{
-                topic: "iot-data-stream",
-                count: 3
-            }]
-        })
+
+        // await admin.createPartitions({
+        //     topicPartitions: [{
+        //         topic: "iot-data-stream",
+        //         count: 3
+        //     }]
+        // })
+        const fetchTopicMetadata = await admin.fetchTopicMetadata({ topics: ["iot-data-stream"] });
+        const fetchTopicOffsets = await admin.fetchTopicOffsets("iot-data-stream");
+        const fetchTopicOffsetsByTimestamp = await admin.fetchTopicOffsetsByTimestamp("iot-data-stream", Date.now());
+        const listGroups = await admin.listGroups();
         const metadata = await admin.fetchTopicMetadata()
         await admin.disconnect();
-        console.log({ topicjs, metadata: JSON.stringify(metadata) });
+        console.log(JSON.stringify({ metadata, fetchTopicMetadata, fetchTopicOffsets, fetchTopicOffsetsByTimestamp, listGroups }));
     } catch (error) {
         console.log(error);
     }
