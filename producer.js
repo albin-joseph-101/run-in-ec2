@@ -1,5 +1,5 @@
-const { Kafka } = require('kafkajs');
-
+const { Kafka, logLevel, ConfigResourceTypes } = require('kafkajs');
+console.log(Date.now());
 (async () => {
     const kafka = new Kafka({
         clientId: 'iot-msk-producer',
@@ -9,6 +9,7 @@ const { Kafka } = require('kafkajs');
             "b-3.iotstream.rnnl6v.c6.kafka.us-east-2.amazonaws.com:9094",
         ],
         ssl: true,
+
     });
 
     const admin = kafka.admin();
@@ -45,13 +46,22 @@ const { Kafka } = require('kafkajs');
         //         count: 3
         //     }]
         // })
-        const fetchTopicMetadata = await admin.fetchTopicMetadata({ topics: ["iot-data-stream"] });
-        const fetchTopicOffsets = await admin.fetchTopicOffsets("iot-data-stream");
-        const fetchTopicOffsetsByTimestamp = await admin.fetchTopicOffsetsByTimestamp("iot-data-stream", Date.now());
-        const listGroups = await admin.listGroups();
-        const metadata = await admin.fetchTopicMetadata()
+        // const fetchTopicMetadata = await admin.fetchTopicMetadata({ topics: ["iot-data-stream"] });
+        // const fetchTopicOffsets = await admin.fetchTopicOffsets("iot-data-stream");
+        // const fetchTopicOffsetsByTimestamp = await admin.fetchTopicOffsetsByTimestamp("iot-data-stream", Date.now());
+        // const listGroups = await admin.listGroups();
+        // const metadata = await admin.fetchTopicMetadata()
+        const alter = await admin.alterConfigs({
+            validateOnly: false,
+            resources: [{
+                type: ConfigResourceTypes.TOPIC,
+                name: "iot-data-stream",
+                configEntries: [{ name: "replicationFactor", value: 2 }]
+            }]
+        })
         await admin.disconnect();
-        console.log(JSON.stringify({ metadata, fetchTopicMetadata, fetchTopicOffsets, fetchTopicOffsetsByTimestamp, listGroups }));
+        // console.log(JSON.stringify({ metadata, fetchTopicMetadata, fetchTopicOffsets, fetchTopicOffsetsByTimestamp, listGroups }));
+        console.log(JSON.stringify(alter))
     } catch (error) {
         console.log(error);
     }
