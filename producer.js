@@ -51,14 +51,23 @@ console.log(Date.now());
         // const fetchTopicOffsetsByTimestamp = await admin.fetchTopicOffsetsByTimestamp("iot-data-stream", Date.now());
         // const listGroups = await admin.listGroups();
         // const metadata = await admin.fetchTopicMetadata()
-        const alter = await admin.alterConfigs({
-            validateOnly: false,
-            resources: [{
+        // const alter = await admin.alterConfigs({
+        //     validateOnly: false,
+        //     resources: [{
+        //         type: ConfigResourceTypes.TOPIC,
+        //         name: "iot-data-stream",
+        //         configEntries: [{ name: "replicationFactor", value: 2 }]
+        //     }]
+        // })
+        const alter = await admin.describeConfigs({
+            includeSynonyms: false,
+            resources: [
+              {
                 type: ConfigResourceTypes.TOPIC,
-                name: "iot-data-stream",
-                configEntries: [{ name: "replicationFactor", value: 2 }]
-            }]
-        })
+                name: 'iot-data-stream'
+              }
+            ]
+          })
         await admin.disconnect();
         // console.log(JSON.stringify({ metadata, fetchTopicMetadata, fetchTopicOffsets, fetchTopicOffsetsByTimestamp, listGroups }));
         console.log(JSON.stringify(alter))
