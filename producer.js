@@ -56,7 +56,7 @@ console.log(Date.now());
             resources: [{
                 type: ConfigResourceTypes.TOPIC,
                 name: "iot-data-stream",
-                configEntries: [{ name: "retention.ms", value: "86400000" }]
+                configEntries: [{ name: "retention.ms", value: "43200000" }]
             }]
         })
         const alter = await admin.describeConfigs({
