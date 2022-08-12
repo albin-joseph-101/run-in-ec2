@@ -47,18 +47,18 @@ console.log(Date.now());
         //     }]
         // })
         // const fetchTopicMetadata = await admin.fetchTopicMetadata({ topics: ["iot-data-stream"] });
-        // const fetchTopicOffsets = await admin.fetchTopicOffsets("iot-data-stream");
+        const fetchTopicOffsets = await admin.fetchTopicOffsets("iot-data-stream");
         // const fetchTopicOffsetsByTimestamp = await admin.fetchTopicOffsetsByTimestamp("iot-data-stream", Date.now());
         // const listGroups = await admin.listGroups();
         // const metadata = await admin.fetchTopicMetadata()
-        const alterConfigs = await admin.alterConfigs({
-            validateOnly: false,
-            resources: [{
-                type: ConfigResourceTypes.TOPIC,
-                name: "iot-data-stream",
-                configEntries: [{ name: "retention.ms", value: "43200000" }]
-            }]
-        })
+        // const alterConfigs = await admin.alterConfigs({
+        //     validateOnly: false,
+        //     resources: [{
+        //         type: ConfigResourceTypes.TOPIC,
+        //         name: "iot-data-stream",
+        //         configEntries: [{ name: "retention.ms", value: "43200000" }]
+        //     }]
+        // })
         const alter = await admin.describeConfigs({
             includeSynonyms: true,
             resources: [
@@ -70,7 +70,7 @@ console.log(Date.now());
           })
         await admin.disconnect();
         // console.log(JSON.stringify({ metadata, fetchTopicMetadata, fetchTopicOffsets, fetchTopicOffsetsByTimestamp, listGroups }));
-        console.log(JSON.stringify(alter), JSON.stringify(alterConfigs))
+        console.log({p: JSON.stringify(alter), off: JSON.stringify(fetchTopicOffsets)})
     } catch (error) {
         console.log(error);
     }
